@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    ///Order By title
-    ///Order by upVote
-    ///Order By downVote
-    ///Order By Best
+    <div id="main">
+        <h2 id="list-name"></h2>
+        <button onclick="orderByTitle()">ordina per titolo</button>
+        <button onclick="orderByUpVote()">ordina per UpVote</button>
+        <button onclick="orderByDownVote()">ordina per DownVote</button>
+        <button onclick="orderByBest()">ordina per Best</button>
+        <ul id="series-list"> </ul>
+    </div>
     
 </body>
 <script src="./services/data-service.js"></script>

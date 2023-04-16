@@ -1,11 +1,12 @@
 class Collection{
 
 
-    constructor(series = []){
-        
+    constructor(title, series = []){
+        this.title = title;
+        this.series = series;
     }
-    addSerie(series) {
-        this.seriesArray.push(series);
+    addSerie(serie) {
+        this.series.push(serie);
     }
 
 }
