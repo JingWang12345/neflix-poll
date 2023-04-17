@@ -8,6 +8,9 @@ class Serie{
         this.upVotes = upVotes;
         this.downVotes= downVotes;
         this.imageUrl = imageUrl;
+        if (id) {
+            this.id = id;
+        }
     }
 
 
