@@ -63,6 +63,7 @@ function displaySeries() {
         buttonContainer.appendChild(upvotesBtn);
         buttonContainer.appendChild(downvotesBtn);
 
+
         const serieTitle = document.createTextNode('titolo: ' + serie.title);
         const serieSeasons = document.createTextNode('stagioni: ' + serie.seasons);
 
@@ -71,6 +72,9 @@ function displaySeries() {
 
         textContainer.appendChild(spanTitle);
         textContainer.appendChild(spanSeasons);
+
+       
+    
 
 
         seriesUl.appendChild(newLi);
