@@ -32,18 +32,30 @@ function displaySeries() {
         const newLi = document.createElement('li');
         newLi.classList.add('serie-li');
         const seriesImg = document.createElement('img');
-        seriesImg.src = serie.imageUrl;
-        newLi.appendChild(seriesImg);
 
+        seriesImg.src = serie.imageUrl;
+
+        newLi.appendChild(seriesImg);
+        const textContainer = document.createElement('div');
+        textContainer.classList.add('text-container');
+        const spanTitle = document.createElement('span');
+        const spanSeasons = document.createElement('span');
+
+        newLi.appendChild(textContainer);
         const upvotesBtn = document.createElement('button');
         newLi.appendChild(upvotesBtn);
         const downvotesBtn = document.createElement('button');
+        downvotesBtn.classList.add('button-1');
         newLi.appendChild(downvotesBtn);
         const serieTitle = document.createTextNode('titolo: ' + serie.title);
-        const serieSeasons = document.createTextNode('stagioni: ' + serie.seasons);
-        newLi.appendChild(serieTitle);
-        newLi.appendChild(serieSeasons);
 
+        const serieSeasons = document.createTextNode('stagioni: ' + serie.seasons);
+       spanTitle.appendChild(serieTitle);
+       spanSeasons.appendChild(serieSeasons);
+        textContainer.appendChild(spanTitle);
+        textContainer.appendChild(spanSeasons);
+
+       
         seriesUl.appendChild(newLi);
 
 
