@@ -12,7 +12,9 @@
 <body>
 
 
-    <h1>Netflix poll</h1>
+    <h1>Netflix poll
+        <img id="loading-icon" class="loading-pizza" src="./assets/pizza.gif" alt="">
+    </h1>
     <!-- <h2 id="list-name"></h2> -->
     <div>
             <button onclick="sortCollectionByTitle()">ordina By titolo</button>
@@ -23,8 +25,16 @@
         <!-- <ul id="series-list"> </ul> -->
 
     </div>
+    <p id="error-message"></p>
     <div id="series-container">
 
+    </div>
+    <div>
+        <span>insert Title</span>
+        <input type="text" id="title-input">
+        <span>insert Creator</span>
+        <input type="text" id="creator-input">
+        <button onclick="saveNewSerie()">Save</button>
     </div>
 
 </body>
@@ -32,5 +42,6 @@
 <script src="./model/serie.js"></script>
 <script src="./model/collection.js"></script>
 <script src="./app.js"></script>
+<script src="./esempi.js"></script>
 
 </html>

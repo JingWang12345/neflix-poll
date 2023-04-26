@@ -4,10 +4,21 @@ let seriesCollection = new Collection('which serie do you like?');
 
 displayCollection();
 
-DataService.getSeries().then(data => {
+
+startLoading()
+DataService.getSeries()
+.then(data => {
     addDatToCollection(data);
     console.log(seriesCollection);
     displayCollection();
+    stopLoading();
+})
+.catch( err => {
+    // const errorMessage = document.getElementById('error-message');
+    // const errorNode = document.createTextNode('accidenti, si è verificato un errore');
+    // errorMessage.appendChild(errorNode);
+    displayErrorMessage('accidenti, si è verificato un errore')
+    stopLoading();
 })
 
 
@@ -33,7 +44,7 @@ function displayCollection() {
                     <span class="title">${serie.title}</span>
                     <div class="subtitle">
                         <span class="creator">${serie.creator}</span>
-                         <span class="seasons">${serie.seasons}${serie.isCompleted ? 'completed':''}</span>
+                         <span class="seasons">${serie.seasons}${serie.isCompleted ? 'completed' : ''}</span>
                     </div>
                 </div>
             </div>
@@ -73,15 +84,33 @@ function displayCollection() {
 }
 
 function upVoteClicked(serie) {
-   serie.upVotes += 1;
-   DataService.putSerie(serie).then(modifiedSerie =>  displayCollection() )
- 
+    serie.upVotes += 1;
+    startLoading();
+    DataService.putSerie(serie)
+    .then(modifiedSerie => {
+        stopLoading();
+        displayCollection();
+    })
+    .catch(error =>{
+        stopLoading();
+        displayErrorMessage('Accidenti! In questo momento non puoi votare');
+    })
+
 }
 
 
 function downVoteClicked(serie) {
     serie.downVotes += 1;
-    DataService.putSerie(serie).then(modifiedSerie =>  displayCollection() )
+    startLoading();
+    DataService.putSerie(serie)
+    .then(modifiedSerie => {
+        stopLoading();
+        displayCollection();
+    })
+    .catch(error =>{
+        stopLoading();
+        displayErrorMessage('Accidenti! In questo momento non puoi votare');
+    })
 
 
 }
@@ -106,8 +135,52 @@ function sortCollectionByDownVotes() {
 function sortCollectionByRating() {
     seriesCollection.sortByRating();
     displayCollection();
-}  
+}
 
+function saveNewSerie() {
+    const titleInput = document.getElementById('title-input');
+    const creatorInput = document.getElementById('creator-input');
+
+    const newSerieTitle = titleInput.value;
+    const newSerieCreator = creatorInput.value;
+
+    const newSerie = new Serie(newSerieTitle, newSerieCreator);
+
+    console.log('newSerie',newSerie);
+startLoading();
+    DataService.postSerie(newSerie).then(savedSerie => {
+        stopLoading();
+        // const finalSerie = new Serie(savedSerie.title, savedSerie.creator, savedSerie.seasons, savedSerie.isCompleted, savedSerie.upVotes, savedSerie.downVotes)
+        newSerie.id = savedSerie.id;
+        seriesCollection.addSerie(newSerie);
+        displayCollection();
+    })
+    .catch(err => {
+        stopLoading();
+        displayErrorMessage('Accidenti! non puoi salvare nuove serie')
+    }
+        )
+    // seriesCollection.addSerie(newSerie);
+    // displayCollection();
+}
+
+
+
+function displayErrorMessage(message) {
+     const errorMessage = document.getElementById('error-message');
+    const errorNode = document.createTextNode(message);
+    errorMessage.appendChild(errorNode);
+}
+
+function startLoading() {
+    const loadingIcon = document.getElementById('loading-icon');
+    loadingIcon.style.display = 'inline-block'
+}
+
+function stopLoading() {
+    const loadingIcon = document.getElementById('loading-icon');
+    loadingIcon.style.display = 'none'
+}
 
 // function displayCollection() {
 //     const seriesTitle = document.getElementById('list-name');
