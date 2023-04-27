@@ -140,13 +140,18 @@ function sortCollectionByRating() {
 function saveNewSerie() {
     const titleInput = document.getElementById('title-input');
     const creatorInput = document.getElementById('creator-input');
+    const seasonsInput = document.getElementById('seasons-input');
+    const completedInput = document.getElementById('completed-input');
 
     const newSerieTitle = titleInput.value;
     const newSerieCreator = creatorInput.value;
+    const newSerieSeasons = seasonsInput.value;
+    const newSerieCompleted = completedInput.value;
 
-    const newSerie = new Serie(newSerieTitle, newSerieCreator);
+    const newSerie = new Serie(newSerieTitle, newSerieCreator, newSerieSeasons, newSerieCompleted);
 
     console.log('newSerie',newSerie);
+
 startLoading();
     DataService.postSerie(newSerie).then(savedSerie => {
         stopLoading();
